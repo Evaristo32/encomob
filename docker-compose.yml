@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://encomobDB:5432/encomob
+      SPRING_DATASOURCE_USERNAME: encomob
+      SPRING_DATASOURCE_PASSWORD: encomob
+    depends_on:
+      - encomobDB
+    networks:
+      - encomob-network
+
+  encomobDB:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_DB: encomob
+      POSTGRES_USER: encomob
+      POSTGRES_PASSWORD: encomob
+    ports:
+      - "5435:5432"
+    networks:
+      - encomob-network
+
+networks:
+  encomob-network:
+    driver: bridge
