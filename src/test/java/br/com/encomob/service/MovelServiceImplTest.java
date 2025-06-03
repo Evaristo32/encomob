@@ -105,6 +105,7 @@ class MovelServiceImplTest {
         verify(movelRepository, times(1)).deleteById(movel.getId());
     }
 
+
     @Test
     void testDeleteByIdThrowsExceptionWhenNotFound() {
         when(movelRepository.existsById(any())).thenReturn(false);
